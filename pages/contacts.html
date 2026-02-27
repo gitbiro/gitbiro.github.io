@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Contact</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root[data-theme="light"] {
+    --bg: #F5F0E8; --bg2: #EDE7D9; --text: #1A1612;
+    --muted: #7A7268; --accent: #C4582A; --border: #C8BFB0; --card: #FDFAF5;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F0D0B; --bg2: #1A1612; --text: #F0EBE1;
+    --muted: #9A9285; --accent: #E07040; --border: #2E2A25; --card: #181410;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg); color: var(--text);
+    transition: background 0.4s, color 0.4s;
+    min-height: 100vh;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: var(--bg); border-bottom: 1px solid var(--border);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600;
+    letter-spacing: 0.05em; color: var(--text); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .theme-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .main {
+    padding-top: 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 80px);
+  }
+
+  /* LEFT PANEL */
+  .left-panel {
+    padding: 5rem 3rem;
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: sticky; top: 80px; height: calc(100vh - 80px);
+    overflow: hidden;
+  }
+  .left-content {}
+  .page-label {
+    font-size: 0.62rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 300; line-height: 0.95;
+    margin-bottom: 2rem;
+    opacity: 0; animation: fadeUp 0.7s 0.3s forwards;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-intro {
+    font-size: 0.72rem; line-height: 1.9;
+    color: var(--muted); max-width: 380px;
+    opacity: 0; animation: fadeUp 0.7s 0.5s forwards;
+  }
+  .contact-links {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid var(--border);
+    opacity: 0; animation: fadeUp 0.7s 0.7s forwards;
+  }
+  .contact-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none; color: var(--text);
+    transition: background 0.2s, color 0.2s;
+  }
+  .contact-link:last-child { border-bottom: none; }
+  .contact-link:hover { background: var(--bg2); }
+  .contact-link:hover .cl-arrow { color: var(--accent); transform: translate(3px, -3px); }
+  .cl-label {
+    display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .cl-type {
+    font-size: 0.58rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  .cl-value { font-size: 0.82rem; }
+  .cl-arrow {
+    color: var(--muted); font-size: 1rem;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .left-bg-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12rem; font-weight: 300;
+    color: var(--border); line-height: 1;
+    position: absolute; bottom: -1rem; right: -1rem;
+    pointer-events: none; opacity: 0.4;
+    transition: color 0.4s;
+  }
+
+  /* RIGHT PANEL — FORM */
+  .right-panel {
+    padding: 5rem 3rem;
+    display: flex; flex-direction: column;
+  }
+  .form-header {
+    display: flex; align-items: baseline; gap: 1rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--border); padding-bottom: 1rem;
+  }
+  .form-index { font-size: 0.62rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .form-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300;
+  }
+
+  form { display: flex; flex-direction: column; gap: 1.5rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  label {
+    font-size: 0.6rem; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--muted);
+  }
+  input, textarea, select {
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 0;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    -webkit-appearance: none;
+  }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+  }
+  textarea { resize: vertical; min-height: 120px; }
+  select option { background: var(--bg); color: var(--text); }
+
+  .submit-btn {
+    align-self: flex-start;
+    padding: 1rem 2.5rem;
+    background: var(--accent); color: #fff;
+    border: none; cursor: pointer;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: inherit;
+    transition: opacity 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+  }
+  .submit-btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  .form-note {
+    font-size: 0.62rem; letter-spacing: 0.05em;
+    color: var(--muted); line-height: 1.7;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+  }
+  .form-note strong { color: var(--accent); font-weight: 400; }
+
+  /* Success message */
+  .success-msg {
+    display: none;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-size: 0.72rem; line-height: 1.8;
+    margin-top: 1rem;
+  }
+
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase;
+    grid-column: 1 / -1;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    .main { grid-template-columns: 1fr; }
+    .left-panel {
+      position: relative; top: 0; height: auto;
+      border-right: none; border-bottom: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+    }
+    .right-panel { padding: 3rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .left-bg-text { display: none; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">A.R.</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="cv.html">CV</a>
+    <a href="contacts.html" class="active">Contact</a>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+  </div>
+</nav>
+
+<div class="main">
+  <div class="left-panel">
+    <div class="left-content">
+      <div class="page-label">04 / Contact</div>
+      <h1 class="page-title">Let's<br><em>Connect</em></h1>
+      <p class="page-intro">
+        Whether it's a new project, a collaboration, or just a conversation — I'm always open to hearing from you. I typically respond within 24 hours.
+      </p>
+    </div>
+
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:hello@alessandrorossi.com">
+        <div class="cl-label">
+          <span class="cl-type">Email</span>
+          <span class="cl-value">hello@alessandrorossi.com</span>
+        </div>
+        <span class="cl-arrow">↗</span>
+      </a>
+      <a class="contact-link" href="https://linkedin.com" target="_blank" rel="noopener">
+        <div class="cl-label">
+          <span class="cl-type">LinkedIn</span>
+          <span class="cl-value">Alessandro Rossi</span>
+        </div>
+        <span class="cl-arrow">↗</span>
+      </a>
+      <a class="contact-link" href="https://github.com" target="_blank" rel="noopener">
+        <div class="cl-label">
+          <span class="cl-type">GitHub</span>
+          <span class="cl-value">@a-rossi</span>
+        </div>
+        <span class="cl-arrow">↗</span>
+      </a>
+      <a class="contact-link" href="tel:+39000000000">
+        <div class="cl-label">
+          <span class="cl-type">Phone</span>
+          <span class="cl-value">+39 000 000 0000</span>
+        </div>
+        <span class="cl-arrow">↗</span>
+      </a>
+    </div>
+
+    <div class="left-bg-text">✉</div>
+  </div>
+
+  <div class="right-panel">
+    <div class="form-header">
+      <span class="form-index">Send a message</span>
+      <span class="form-title">Get in Touch</span>
+    </div>
+
+    <form id="contactForm" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fname">First Name *</label>
+          <input type="text" id="fname" required placeholder="Your first name">
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name *</label>
+          <input type="text" id="lname" required placeholder="Your last name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" required placeholder="you@example.com">
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <select id="subject">
+          <option value="">Select a topic...</option>
+          <option value="opportunity">Job Opportunity</option>
+          <option value="freelance">Freelance Project</option>
+          <option value="collaboration">Collaboration</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message *</label>
+        <textarea id="message" required placeholder="Tell me about your project, opportunity, or just say hello..."></textarea>
+      </div>
+
+      <div class="form-note">
+        <strong>Note:</strong> This form is a front-end template. To make it functional, connect it to a service like Formspree, Netlify Forms, or your own backend — just update the <code>action</code> attribute.
+      </div>
+
+      <button type="submit" class="submit-btn">Send Message →</button>
+
+      <div class="success-msg" id="successMsg">
+        ✓ Message sent! I'll get back to you within 24 hours.
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    <span>© 2026 Alessandro Rossi</span>
+    <span>Milan, Italy</span>
+  </footer>
+</div>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.querySelector('.theme-btn').textContent = isDark ? '☀' : '☽';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.querySelector('.theme-btn').textContent = saved === 'dark' ? '☽' : '☀';
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Simulate submission
+    const btn = document.querySelector('.submit-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('contactForm').reset();
+      document.getElementById('successMsg').style.display = 'block';
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }, 1200);
+  }
+</script>
+</body>
+</html>

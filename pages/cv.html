@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — CV</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root[data-theme="light"] {
+    --bg: #F5F0E8; --bg2: #EDE7D9; --text: #1A1612;
+    --muted: #7A7268; --accent: #C4582A; --border: #C8BFB0; --card: #FDFAF5;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F0D0B; --bg2: #1A1612; --text: #F0EBE1;
+    --muted: #9A9285; --accent: #E07040; --border: #2E2A25; --card: #181410;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.4s, color 0.4s;
+    min-height: 100vh;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600;
+    letter-spacing: 0.05em; color: var(--text); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .theme-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .page-wrapper {
+    padding-top: 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+  .page-header {
+    padding: 4rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 300;
+    line-height: 1;
+  }
+  .page-title em { font-style: italic; color: var(--accent); }
+  .page-actions { display: flex; gap: 0.75rem; }
+  .btn-download {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--accent); color: #fff;
+    text-decoration: none;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: opacity 0.2s;
+    cursor: pointer; border: none;
+  }
+  .btn-download:hover { opacity: 0.85; }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--border); color: var(--text);
+    text-decoration: none;
+    font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s;
+    cursor: pointer; background: none; font-family: inherit;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PDF VIEWER */
+  .pdf-container {
+    margin: 2.5rem 0;
+    border: 1px solid var(--border);
+    background: var(--card);
+    transition: background 0.4s, border-color 0.4s;
+    position: relative;
+  }
+  .pdf-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    transition: background 0.4s;
+  }
+  .pdf-toolbar-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .pdf-nav { display: flex; gap: 0.5rem; align-items: center; }
+  .pdf-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.7rem; font-family: inherit;
+    transition: all 0.2s;
+  }
+  .pdf-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .pdf-btn:disabled { opacity: 0.3; cursor: default; }
+  .pdf-page-info {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 0 0.5rem;
+  }
+  .pdf-embed-wrapper {
+    width: 100%;
+    height: 75vh;
+    min-height: 500px;
+    position: relative;
+  }
+  embed.pdf-embed, iframe.pdf-embed {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: none;
+  }
+
+  /* PLACEHOLDER (when no PDF is uploaded) */
+  .pdf-placeholder {
+    width: 100%;
+    height: 75vh;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+  .placeholder-icon {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem;
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+  }
+  .placeholder-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--muted);
+  }
+  .placeholder-sub {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-align: center;
+    max-width: 320px;
+    line-height: 1.8;
+  }
+  .upload-btn {
+    padding: 0.85rem 2rem;
+    background: var(--accent); color: #fff;
+    border: none; cursor: pointer;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    font-family: inherit;
+    transition: opacity 0.2s;
+  }
+  .upload-btn:hover { opacity: 0.85; }
+  #fileInput { display: none; }
+
+  /* INFO CARDS */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+  .info-card {
+    padding: 2rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .info-card:nth-child(2n) { border-right: none; }
+  .info-card:nth-last-child(-n+2) { border-bottom: none; }
+  .info-card-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .info-card-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+  }
+
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .page-wrapper { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .page-header { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .info-card { border-right: none; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">A.R.</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="cv.html" class="active">CV</a>
+    <a href="contacts.html">Contact</a>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-header">
+    <h1 class="page-title">Curriculum<br><em>Vitae</em></h1>
+    <div class="page-actions">
+      <button class="btn-outline" onclick="document.getElementById('fileInput').click()">↑ Upload PDF</button>
+      <a id="downloadBtn" href="cv.pdf" download class="btn-download">↓ Download</a>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept="application/pdf" onchange="loadPDF(event)">
+
+  <div class="pdf-container">
+    <div class="pdf-toolbar">
+      <span class="pdf-toolbar-label">CV Document</span>
+      <div class="pdf-nav">
+        <button class="pdf-btn" id="prevBtn" disabled onclick="prevPage()">← Prev</button>
+        <span class="pdf-page-info" id="pageInfo">—</span>
+        <button class="pdf-btn" id="nextBtn" disabled onclick="nextPage()">Next →</button>
+      </div>
+    </div>
+
+    <div class="pdf-embed-wrapper" id="pdfWrapper">
+      <!-- Placeholder shown until PDF is loaded -->
+      <div class="pdf-placeholder" id="placeholder">
+        <div class="placeholder-icon">PDF</div>
+        <div class="placeholder-title">Your CV goes here</div>
+        <p class="placeholder-sub">Replace <code>cv.pdf</code> in the same folder, or click Upload to preview any PDF instantly.</p>
+        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">Upload PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick info cards -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-label">Name</div>
+      <div class="info-card-value">Alessandro Rossi</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Role</div>
+      <div class="info-card-value">Senior Product Designer</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Location</div>
+      <div class="info-card-value">Milan, Italy</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-label">Status</div>
+      <div class="info-card-value">Open to Offers</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Alessandro Rossi</span>
+  <span>Milan, Italy</span>
+</footer>
+
+<script>
+  // Theme
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.querySelector('.theme-btn').textContent = isDark ? '☀' : '☽';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.querySelector('.theme-btn').textContent = saved === 'dark' ? '☽' : '☀';
+  }
+
+  // PDF loading
+  let currentPage = 1, totalPages = 1;
+  let pdfObjectUrl = null;
+
+  function loadPDF(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    if (pdfObjectUrl) URL.revokeObjectURL(pdfObjectUrl);
+    pdfObjectUrl = URL.createObjectURL(file);
+    showPDF(pdfObjectUrl, file.name);
+    // Update download button
+    const dlBtn = document.getElementById('downloadBtn');
+    dlBtn.href = pdfObjectUrl;
+    dlBtn.download = file.name;
+  }
+
+  function showPDF(url, name) {
+    const wrapper = document.getElementById('pdfWrapper');
+    wrapper.innerHTML = `<iframe class="pdf-embed" src="${url}" title="${name || 'CV'}"></iframe>`;
+    document.getElementById('pageInfo').textContent = 'Loaded';
+    // For embed-based viewers, page nav isn't controllable via JS without PDF.js
+    // Show as info only
+    document.getElementById('pageInfo').textContent = name || 'cv.pdf';
+  }
+
+  // Try to auto-load cv.pdf from same directory
+  fetch('cv.pdf', { method: 'HEAD' })
+    .then(r => { if (r.ok) showPDF('cv.pdf', 'cv.pdf'); })
+    .catch(() => {}); // silently fail — placeholder stays
+</script>
+</body>
+</html>
