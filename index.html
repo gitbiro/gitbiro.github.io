@@ -1,96 +1,462 @@
 <!DOCTYPE html>
-<html lang="en-US">
-  <head>
-    <meta charset="utf-8">
-    <title>Birosensei's den v2</title>
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" sizes="16x16 32x32 48x48" type="image/png" href="https://img.icons8.com/arcade/512/black-cat.png"/>
-    <link rel="canonical" href="https://www.bireaux.github.io"/>
-    <meta http-equiv="content-security-policy" content="default-src https:">
-    <meta name="description" content="Sito personale di Simone Biraghi">
-    <meta name="theme-color" content="#226DAA">
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root[data-theme="light"] {
+    --bg: #F5F0E8;
+    --bg2: #EDE7D9;
+    --text: #1A1612;
+    --muted: #7A7268;
+    --accent: #C4582A;
+    --border: #C8BFB0;
+    --card: #FDFAF5;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F0D0B;
+    --bg2: #1A1612;
+    --text: #F0EBE1;
+    --muted: #9A9285;
+    --accent: #E07040;
+    --border: #2E2A25;
+    --card: #181410;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.4s, color 0.4s;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Biro's den" />
-    <meta property="og:description" content="Sito personale di Simone Biraghi"/>
-    <meta property="og:image" content="https://aboutcreators.it/wp-content/uploads/2018/06/zeb893-1024x683.jpg" />
-    <meta property="og:image:alt" content="EH VOLEVI" />
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.4rem 3rem;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.4s, border-color 0.4s;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+  .theme-btn {
+    background: none; border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    font-size: 0.85rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-    <!-- Twitter -->
-    <meta name="twitter:title" content="Biro's den">
-    <meta name="twitter:description" content="Sito personale di Simone Biraghi"/>
-    <meta name="twitter:url" content="https://www.machinelearningworkshop.com/?src=twitter" />
-    <meta name="twitter:image:src" content="https://aboutcreators.it/wp-content/uploads/2018/06/zeb893-1024x683.jpg"/>
-    <meta name="twitter:image:alt" content="EH VOLEVI" />
-    <meta name="twitter:creator" content="@">
-    <meta name="twitter:site" content="@">
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-number {
+    position: absolute;
+    top: 50%; right: -0.05em;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16rem, 35vw, 32rem);
+    font-weight: 300;
+    color: var(--border);
+    line-height: 1;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: color 0.4s;
+  }
+  .hero-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-name em { font-style: italic; color: var(--accent); }
+  .hero-desc {
+    max-width: 480px;
+    font-size: 0.75rem;
+    line-height: 1.8;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-block;
+    padding: 0.9rem 2.2rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
-    <link rel="manifest" href="/mlwmanifest.json"/>
-  </head>
-  <body>
-    <header>
-      <h1>Welcome to Biro's Den</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="/pages/projects.html">Projects</a>
-        <a href="/pages/articles.html">Articles</a>
-        <a href="/pages/contact.html">Contact</a>
-      </nav>
-    </header>
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    border: none; border-top: 1px solid var(--border);
+    margin: 0 3rem;
+    width: calc(100% - 6rem);
+  }
 
-    <main>
-      <header>
-        <h1>Exploring Ideas</h1>
-      </header>
+  /* ABOUT STRIP */
+  .about-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+    margin-top: 6rem;
+  }
+  .strip-item {
+    padding: 3rem;
+    border-right: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.8s forwards;
+  }
+  .strip-item:last-child { border-right: none; }
+  .strip-item:nth-child(1) { animation-delay: 0.3s; }
+  .strip-item:nth-child(2) { animation-delay: 0.5s; }
+  .strip-item:nth-child(3) { animation-delay: 0.7s; }
+  .strip-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .strip-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .strip-text {
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
 
-      <section>
-        <h2>About Me</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae
-          magna vel nisl suscipit finibus. Integer tristique leo eget mauris
-          viverra, nec dictum nulla fermentum. Nulla facilisi. Vivamus sit amet
-          ex eget justo consequat bibendum.
-        </p>
-        <p>
-          Donec dictum dui sit amet felis commodo, id feugiat quam ultrices.
-          Suspendisse potenti. Cras sodales risus ac lectus varius, eu commodo
-          neque congue.
-        </p>
-      </section>
+  /* SKILLS SECTION */
+  .section {
+    padding: 6rem 3rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+  .section-index {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .skill-card {
+    padding: 2rem 1.5rem;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .skill-card:hover { background: var(--bg2); }
+  .skill-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+  }
+  .skill-level {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .skill-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+  }
+  .skill-bar-fill {
+    position: absolute; top: 0; left: 0; height: 100%;
+    background: var(--accent);
+    transition: width 1s ease;
+  }
 
-      <section>
-        <h2>Recent Projects</h2>
-        <p>
-          Aenean a velit ac orci laoreet maximus. Proin consequat, nunc a
-          ultricies posuere, purus justo luctus dui, vitae sagittis orci nunc
-          vitae libero. Aliquam erat volutpat.
-        </p>
-        <p>
-          Praesent sed justo id nunc ultrices lacinia. Fusce consequat nunc ac
-          ligula dictum, nec fringilla urna facilisis. Etiam euismod, justo vel
-          tincidunt tempor, risus arcu luctus sem, sed dapibus urna magna non
-          risus.
-        </p>
-      </section>
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; }
+  .exp-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .exp-year {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+  }
+  .exp-company {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .exp-desc {
+    font-size: 0.72rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
 
-      <section>
-        <h2>Articles</h2>
-        <p>
-          Pellentesque habitant morbi tristique senectus et netus et malesuada
-          fames ac turpis egestas. Integer quis lorem nec lacus fermentum
-          accumsan. Morbi ut nisl eu risus porta dictum. Maecenas ultricies
-          lectus eget erat luctus, at sagittis purus tincidunt.
-        </p>
-        <p>
-          Curabitur ac mauris eu purus eleifend maximus. Suspendisse vitae
-          sapien sit amet turpis tincidunt finibus in in est.
-        </p>
-      </section>
-    </main>
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
 
-    <footer>
-      <p>© 2025 Simone B.</p>
-    </footer>
-  </body>
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .about-strip { grid-template-columns: 1fr; }
+    .strip-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .section { padding: 4rem 1.5rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">A.R.</a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Home</a>
+    <a href="cv.html">CV</a>
+    <a href="contacts.html">Contact</a>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg-number">01</div>
+  <p class="hero-label">Available for opportunities</p>
+  <h1 class="hero-name">
+    Alessandro<br><em>Rossi</em>
+  </h1>
+  <p class="hero-desc">
+    Senior Product Designer & Developer with 8+ years crafting digital experiences that sit at the intersection of clarity and delight. Based in Milan, working globally.
+  </p>
+  <div class="hero-actions">
+    <a href="cv.html" class="btn-primary">View CV</a>
+    <a href="contacts.html" class="btn-secondary">Get in Touch</a>
+  </div>
+</section>
+
+<div class="about-strip">
+  <div class="strip-item">
+    <div class="strip-number">8+</div>
+    <div class="strip-label">Years Experience</div>
+    <div class="strip-text">Designing and building products used by millions of people worldwide.</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-number">40+</div>
+    <div class="strip-label">Projects Shipped</div>
+    <div class="strip-text">From early-stage startups to enterprise platforms, always end-to-end.</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-number">12</div>
+    <div class="strip-label">Clients & Partners</div>
+    <div class="strip-text">Long-term relationships built on trust, precision, and creative ambition.</div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="section-header">
+    <span class="section-index">02 / Skills</span>
+    <h2 class="section-title">Expertise</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-name">Product Design</div>
+      <div class="skill-level">Expert</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:95%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">React / Next.js</div>
+      <div class="skill-level">Advanced</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">Figma & Motion</div>
+      <div class="skill-level">Expert</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:92%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">TypeScript</div>
+      <div class="skill-level">Advanced</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:82%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">Brand Strategy</div>
+      <div class="skill-level">Proficient</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:75%"></div></div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-name">Design Systems</div>
+      <div class="skill-level">Expert</div>
+      <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="section-header">
+    <span class="section-index">03 / Work</span>
+    <h2 class="section-title">Experience</h2>
+  </div>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-year">2022 — Present</div>
+      <div>
+        <div class="exp-role">Lead Product Designer</div>
+        <div class="exp-company">Volta Studio · Milan, IT</div>
+        <div class="exp-desc">Leading design across three product lines. Built and scaled the design system from 0 to 400+ components. Collaborated directly with engineering to ship a redesigned dashboard reducing task time by 34%.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-year">2019 — 2022</div>
+      <div>
+        <div class="exp-role">Senior UX Designer</div>
+        <div class="exp-company">Meridian Labs · Remote</div>
+        <div class="exp-desc">Owned end-to-end design for a B2B SaaS platform serving 120k users. Introduced usability testing rituals that directly influenced product roadmap decisions.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-year">2016 — 2019</div>
+      <div>
+        <div class="exp-role">UI/UX Designer</div>
+        <div class="exp-company">Freelance · Various</div>
+        <div class="exp-desc">Worked with startups and agencies across fintech, healthcare, and e-commerce. Delivered brand identities, web apps, and mobile products from brief to launch.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Alessandro Rossi</span>
+  <span>Milan, Italy</span>
+</footer>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    document.querySelector('.theme-btn').textContent = isDark ? '☀' : '☽';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+  // On load, restore theme
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    document.querySelector('.theme-btn').textContent = saved === 'dark' ? '☽' : '☀';
+  }
+</script>
+</body>
 </html>
