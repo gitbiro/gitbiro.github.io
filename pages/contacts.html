@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Contact</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root[data-theme="light"] {
     --bg: #F5F0E8; --bg2: #EDE7D9; --text: #1A1612;
@@ -16,7 +16,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Inter', sans-serif;
     background: var(--bg); color: var(--text);
     transition: background 0.4s, color 0.4s;
     min-height: 100vh;
@@ -29,7 +29,7 @@
     transition: background 0.4s, border-color 0.4s;
   }
   .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.3rem; font-weight: 600;
     letter-spacing: 0.05em; color: var(--text); text-decoration: none;
   }
@@ -72,7 +72,7 @@
     opacity: 0; animation: fadeUp 0.7s 0.1s forwards;
   }
   .page-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(3rem, 6vw, 6rem);
     font-weight: 300; line-height: 0.95;
     margin-bottom: 2rem;
@@ -112,7 +112,7 @@
     transition: transform 0.2s, color 0.2s;
   }
   .left-bg-text {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 12rem; font-weight: 300;
     color: var(--border); line-height: 1;
     position: absolute; bottom: -1rem; right: -1rem;
@@ -132,7 +132,7 @@
   }
   .form-index { font-size: 0.62rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
   .form-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.8rem; font-weight: 300;
   }
 
@@ -149,7 +149,7 @@
     border-bottom: 1px solid var(--border);
     padding: 0.7rem 0;
     color: var(--text);
-    font-family: 'DM Mono', monospace;
+    font-family: 'Inter', sans-serif;
     font-size: 0.78rem;
     outline: none;
     transition: border-color 0.2s;
@@ -168,7 +168,7 @@
     background: var(--accent); color: #fff;
     border: none; cursor: pointer;
     font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-    font-family: inherit;
+    font-family: 'Inter', sans-serif;
     transition: opacity 0.2s, transform 0.2s;
     margin-top: 0.5rem;
   }
@@ -243,10 +243,10 @@
     </div>
 
     <div class="contact-links">
-      <a class="contact-link" href="mailto:hello@alessandrorossi.com">
+      <a class="contact-link" href="/cdn-cgi/l/email-protection#573f323b3b3817363b3224243639332538253824243e7934383a">
         <div class="cl-label">
           <span class="cl-type">Email</span>
-          <span class="cl-value">hello@alessandrorossi.com</span>
+          <span class="cl-value"><span class="__cf_email__" data-cfemail="523a373e3e3d12333e372121333c36203d203d21213b7c313d3f">[email&#160;protected]</span></span>
         </div>
         <span class="cl-arrow">↗</span>
       </a>
@@ -333,7 +333,7 @@
   </footer>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
@@ -353,13 +353,4 @@
     const btn = document.querySelector('.submit-btn');
     btn.textContent = 'Sending...';
     btn.disabled = true;
-    setTimeout(() => {
-      document.getElementById('contactForm').reset();
-      document.getElementById('successMsg').style.display = 'block';
-      btn.textContent = 'Send Message →';
-      btn.disabled = false;
-    }, 1200);
-  }
-</script>
-</body>
-</html>
+    set
