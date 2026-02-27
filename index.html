@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Home</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root[data-theme="light"] {
     --bg: #F5F0E8;
@@ -27,7 +27,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'DM Mono', monospace;
+    font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
     transition: background 0.4s, color 0.4s;
@@ -45,7 +45,7 @@
     transition: background 0.4s, border-color 0.4s;
   }
   .nav-logo {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.3rem;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -84,7 +84,7 @@
     position: absolute;
     top: 50%; right: -0.05em;
     transform: translateY(-50%);
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(16rem, 35vw, 32rem);
     font-weight: 300;
     color: var(--border);
@@ -103,7 +103,7 @@
     animation: fadeUp 0.8s 0.2s forwards;
   }
   .hero-name {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: clamp(3.5rem, 9vw, 8rem);
     font-weight: 300;
     line-height: 0.95;
@@ -178,7 +178,7 @@
   .strip-item:nth-child(2) { animation-delay: 0.5s; }
   .strip-item:nth-child(3) { animation-delay: 0.7s; }
   .strip-number {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 3rem;
     font-weight: 300;
     color: var(--accent);
@@ -211,7 +211,7 @@
     padding-bottom: 1rem;
   }
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 2.5rem;
     font-weight: 300;
   }
@@ -235,7 +235,7 @@
   }
   .skill-card:hover { background: var(--bg2); }
   .skill-name {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.3rem;
     font-weight: 400;
     margin-bottom: 0.4rem;
@@ -274,7 +274,7 @@
     padding-top: 0.2rem;
   }
   .exp-role {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: 'Inter', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
     margin-bottom: 0.3rem;
@@ -327,8 +327,8 @@
   <a class="nav-logo" href="index.html">A.R.</a>
   <div class="nav-links">
     <a href="index.html" class="active">Home</a>
-    <a href="./pages/cv.html">CV</a>
-    <a href="./pages/contacts.html">Contact</a>
+    <a href="cv.html">CV</a>
+    <a href="contacts.html">Contact</a>
     <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">☀</button>
   </div>
 </nav>
@@ -337,14 +337,14 @@
   <div class="hero-bg-number">01</div>
   <p class="hero-label">Available for opportunities</p>
   <h1 class="hero-name">
-    Simone<br><em>Biraghi</em>
+    Alessandro<br><em>Rossi</em>
   </h1>
   <p class="hero-desc">
     Senior Product Designer & Developer with 8+ years crafting digital experiences that sit at the intersection of clarity and delight. Based in Milan, working globally.
   </p>
   <div class="hero-actions">
-    <a href="./pages/cv.html" class="btn-primary">View CV</a>
-    <a href="./pages/contacts.html" class="btn-secondary">Get in Touch</a>
+    <a href="cv.html" class="btn-primary">View CV</a>
+    <a href="contacts.html" class="btn-secondary">Get in Touch</a>
   </div>
 </section>
 
